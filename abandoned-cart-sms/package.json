@@ -1,0 +1,25 @@
+{
+  "name": "abandoned-cart-sms-reminder",
+  "version": "1.0.0",
+  "description": "Shopify plugin – envoie un SMS via AWS SNS quand un panier est abandonné",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "node src/test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sns": "^3.600.0",
+    "better-sqlite3": "^9.6.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
