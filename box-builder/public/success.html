@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Received</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .receipt { max-width: 560px; margin: 40px auto; padding: 28px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+    .receipt h1 { margin: 0 0 6px; font-size: 24px; }
+    .receipt dl { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; margin: 20px 0; }
+    .receipt dt { color: var(--muted); }
+    .receipt dd { margin: 0; }
+    .receipt a { color: var(--accent); }
+    @media (max-width: 600px) { .receipt { margin: 16px; padding: 20px; } }
+  </style>
+</head>
+<body>
+  <main class="receipt">
+    <h1 id="title">Thank you!</h1>
+    <p class="muted" id="subtitle">Loading your order…</p>
+    <dl id="details" hidden>
+      <dt>Order</dt><dd id="orderId"></dd>
+      <dt>Box</dt><dd id="desc"></dd>
+      <dt>Quantity</dt><dd id="qty"></dd>
+      <dt>Total</dt><dd id="total"></dd>
+      <dt>Status</dt><dd id="status"></dd>
+    </dl>
+    <p><a href="/">← Design another box</a></p>
+  </main>
+  <script type="module">
+    const params = new URLSearchParams(location.search);
+    const id = params.get('order');
+    const $ = (x) => document.getElementById(x);
+    const statusText = {
+      paid: 'Paid — in production queue',
+      pending_payment: 'Payment processing',
+      demo: 'Recorded (demo mode, no payment taken)',
+    };
+    fetch(`/api/orders/${encodeURIComponent(id)}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((o) => {
+        $('subtitle').textContent = 'Your order has been received. Keep this order number for reference.';
+        $('orderId').textContent = o.id;
+        $('desc').textContent = o.description;
+        $('qty').textContent = o.config.quantity;
+        $('total').textContent = o.price.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        $('status').textContent = statusText[o.status] || o.status;
+        $('details').hidden = false;
+      })
+      .catch(() => {
+        $('title').textContent = 'Order not found';
+        $('subtitle').textContent = 'We could not find that order. If you were charged, contact us with your receipt.';
+      });
+  </script>
+</body>
+</html>

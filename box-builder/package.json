@@ -1,0 +1,19 @@
+{
+  "name": "box-builder",
+  "version": "1.0.0",
+  "description": "Custom enclosure configurator with 3D preview, LED/fan placement and online checkout",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.22.3",
+    "stripe": "^22.6.2",
+    "three": "^0.169.0"
+  },
+  "type": "module",
+  "private": true
+}

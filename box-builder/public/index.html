@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Custom Box Builder</title>
+  <meta name="description" content="Design a custom metal enclosure in 3D, add LEDs and fans where you want them, and order online.">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/vendor/three/build/three.module.js",
+        "three/addons/": "/vendor/three/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4z M3 7l9 4 9-4 M12 11v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Custom Box Builder</span>
+    </div>
+    <div class="topbar-price" aria-live="polite">
+      <span class="muted">Total</span> <strong id="headerTotal">—</strong>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="viewer" aria-label="3D preview">
+      <canvas id="scene"></canvas>
+      <div class="viewer-tools">
+        <button type="button" id="doorBtn" class="tool">Open door</button>
+        <button type="button" id="resetViewBtn" class="tool">Reset view</button>
+      </div>
+      <div id="placingBanner" class="banner" hidden>
+        <span id="placingText">Click a panel to place it</span>
+        <button type="button" id="cancelPlacingBtn" class="link">Cancel</button>
+      </div>
+      <p class="viewer-hint">Drag to rotate · scroll to zoom · drag an accessory to move it</p>
+    </section>
+
+    <aside class="panel">
+      <form id="configForm" novalidate>
+        <section class="step">
+          <h2><span class="num">1</span> Size <small>(mm, outside)</small></h2>
+          <div class="dims">
+            <label>Width <input type="number" id="width" inputmode="numeric"></label>
+            <label>Height <input type="number" id="height" inputmode="numeric"></label>
+            <label>Depth <input type="number" id="depth" inputmode="numeric"></label>
+          </div>
+        </section>
+
+        <section class="step">
+          <h2><span class="num">2</span> Style</h2>
+          <div class="cards" id="styleCards" role="radiogroup" aria-label="Box style"></div>
+        </section>
+
+        <section class="step">
+          <h2><span class="num">3</span> Material &amp; finish</h2>
+          <label class="field">Material <select id="material"></select></label>
+          <div class="swatches" id="colorSwatches" role="radiogroup" aria-label="Color"></div>
+          <p class="muted small" id="colorLabel"></p>
+        </section>
+
+        <section class="step">
+          <h2><span class="num">4</span> Options</h2>
+          <div id="optionList" class="checks"></div>
+          <label class="field inline">Cable knockouts <input type="number" id="knockouts" min="0" max="12"></label>
+        </section>
+
+        <section class="step">
+          <h2><span class="num">5</span> LEDs &amp; fans</h2>
+          <p class="muted small">Pick an item, then click where you want it on the 3D box. Open the door to mount things inside.</p>
+          <div class="add-grid" id="addButtons"></div>
+          <ul class="acc-list" id="accList"></ul>
+        </section>
+
+        <section class="step summary">
+          <h2><span class="num">6</span> Order</h2>
+          <table class="price-table"><tbody id="priceLines"></tbody></table>
+          <label class="field inline">Quantity <input type="number" id="quantity" min="1" max="500"></label>
+          <table class="price-table totals"><tbody id="priceTotals"></tbody></table>
+          <label class="field">Notes for the shop (optional)
+            <textarea id="notes" rows="2" maxlength="1000" placeholder="Labels, cut-outs, deadlines…"></textarea>
+          </label>
+          <div id="errors" class="errors" role="alert" hidden></div>
+          <button type="submit" id="checkoutBtn" class="primary">Pay &amp; place order</button>
+          <p class="muted small center" id="payMode"></p>
+          <button type="button" id="shareBtn" class="secondary">Copy link to this design</button>
+        </section>
+      </form>
+    </aside>
+  </main>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
