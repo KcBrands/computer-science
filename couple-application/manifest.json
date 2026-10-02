@@ -1,0 +1,9 @@
+{
+  "name": "CoupleApplication",
+  "short_name": "CoupleApp",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fff5f8",
+  "theme_color": "#e11d63",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e11d63">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="CoupleApp">
+  <meta name="description" content="Applications are now open. Fill in the form and your answers go straight to the person who sent you the link.">
+  <meta property="og:title" content="Applications are now open ‼️">
+  <meta property="og:description" content="Fill in the CoupleApplication form. Wasting their time will result in immediate rejection.">
+  <title>CoupleApplication</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="./" id="brand">
+        <img src="icon.svg" alt="" width="28" height="28">
+        <span>CoupleApplication</span>
+      </a>
+      <span class="step-label" id="stepLabel"></span>
+    </header>
+    <div class="progress" id="progressWrap" hidden><div class="progress-bar" id="progressBar"></div></div>
+    <main id="view" tabindex="-1"></main>
+  </div>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
